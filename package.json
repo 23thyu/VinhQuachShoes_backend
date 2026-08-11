@@ -15,6 +15,9 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@babel/core": "^7.27.4",
+    "@babel/node": "^7.27.1",
+    "@babel/preset-env": "^7.27.2",
     "argon2": "^0.43.0",
     "cloudinary": "^2.10.0",
     "dotenv": "^16.5.0",
@@ -29,8 +32,5 @@
     "sequelize-cli": "^6.6.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.27.4",
-    "@babel/node": "^7.27.1",
-    "@babel/preset-env": "^7.27.2"
   }
 }
