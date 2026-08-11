@@ -1,0 +1,119 @@
+table users{
+  id int [pk]
+  email varchar
+  password varchar
+  name varchar
+  role int
+  avatar varchar
+  phone int
+  created_at datetime
+  update_at datetime
+}
+table categories{
+  id int [pk]
+  name varchar
+  image text
+
+}
+table products{
+  id int [pk]
+  name varchar
+  image text
+  price int 
+  oldprice int
+  description text
+  specification text
+  buyturn int // số lượng mua
+  quantity int // hàng trong kho
+  brand_id int //thương hiệu
+  category_id int 
+  created_at datetime
+  updated_at datetime
+
+}
+Ref: "categories"."id" <"products"."category_id"
+  Table brands{
+    id int [pk]
+    name varchar
+    image text
+  }
+  Ref: "brands"."id" <"products"."brand_id"
+table feedback{
+  id int [pk]
+  product_id int
+  user_id int
+  star int
+  content text
+  created_at datetime
+  updated_at datetime
+}
+ref:"products"."id"<"feedback"."product_id"
+ref:"users"."id"<"feedback"."user_id"
+  
+  table orders{
+    id int [pk]
+    user_id int
+    status int
+    note text
+    total int//tổng tiền
+    created_at datetime
+    updated_at datetime 
+  }
+ref:"users"."id"<"orders"."user_id"
+  table order_details {
+    id int [pk]
+    order_id int
+    product_id int
+    price int 
+    quantity int
+    created_at datetime
+    update_at datetime
+  }
+Ref:"orders"."id"<"order_details"."order_id"
+
+table news {
+    id int [pk]
+    title varchar
+    image text
+    content varchar
+    created_at datetime
+    update_at datetime
+  }
+table news_details {
+    id int [pk]
+    news_id int 
+    product_id int
+    created_at datetime
+    update_at datetime
+  }
+ref:"news"."id"< news_details.news_id
+ref: products.id< news_details.product_id
+ref: products.id< order_details.product_id
+
+table banner {
+    id int [pk]
+    name varchar
+    image text
+    status int
+    created_at datetime
+    update_at datetime
+}
+table banner_details {
+    id int [pk]
+    banner_id int 
+    product_id int
+    created_at datetime
+    update_at datetime
+  }
+ref: products.id< banner_details.product_id
+ref: banner.id< banner_details.banner_id
+
+
+
+
+
+
+
+
+
+

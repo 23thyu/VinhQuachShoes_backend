@@ -1,0 +1,37 @@
+services:
+  mysql:
+    image: mysql:latest
+    container_name: giay_mysql_container
+    ports:
+      - "3310:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: "ShoesShop"
+    restart: always
+    networks:
+      - giay-project-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: giay_phpmyadmin_container
+    restart: always
+    ports:
+      - "9091:80" #port mapping
+    environment:
+      PMA_HOST: gateway01.ap-southeast-1.prod.aws.tidbcloud.com
+      PMA_PORT: 4000
+      PMA_SSL: "1"
+      PMA_SSL_VERIFY: "1"
+      PMA_SSL_CA: /etc/phpmyadmin/ca.pem
+      UPLOAD_LIMIT: 500M
+    volumes:
+      - ./config/ca.pem:/etc/phpmyadmin/ca.pem:ro
+      - ./config/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php:ro
+    networks:
+      - giay-project-network
+
+networks:
+  giay-project-network:
+    name: giay-project-network
+    driver: bridge

@@ -1,0 +1,36 @@
+{
+  "name": "shopapp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "start": "nodemon --inspect --exec babel-node ./index.js",
+    "start:prod": "babel-node ./index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:api": "babel-node run-tests.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "argon2": "^0.43.0",
+    "cloudinary": "^2.10.0",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "firebase": "^12.15.0",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.2.0",
+    "mysql2": "^3.14.1",
+    "nodemon": "^3.1.10",
+    "sequelize": "^6.37.7",
+    "sequelize-cli": "^6.6.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.27.4",
+    "@babel/node": "^7.27.1",
+    "@babel/preset-env": "^7.27.2"
+  }
+}

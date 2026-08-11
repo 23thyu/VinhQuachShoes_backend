@@ -1,0 +1,361 @@
+{
+  "info": {
+    "_postman_id": "2bdfea9b-0522-48ae-8302-1ea425477c36",
+    "name": "ShopAppOnline",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "45996085",
+    "_collection_link": "https://tronghieu-313580.postman.co/workspace/Trong-Hieu's-Workspace~50eaf010-2bcc-422b-83ad-dd8d0a02321c/collection/45996085-2bdfea9b-0522-48ae-8302-1ea425477c36?action=share&source=collection_link&creator=45996085"
+  },
+  "item": [
+    {
+      "name": "products",
+      "item": [
+        {
+          "name": "api/products",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_SHOPAPP}}/products",
+              "host": ["{{API_SHOPAPP}}"],
+              "path": ["products"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/products/:id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_SHOPAPP}}/products/2",
+              "host": ["{{API_SHOPAPP}}"],
+              "path": ["products", "2"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/products",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{API_SHOPAPP}}/products",
+              "host": ["{{API_SHOPAPP}}"],
+              "path": ["products"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/products",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{API_SHOPAPP}}/products",
+              "host": ["{{API_SHOPAPP}}"],
+              "path": ["products"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/products/:id",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{API_SHOPAPP}}/products/2",
+              "host": ["{{API_SHOPAPP}}"],
+              "path": ["products", "2"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "categories",
+      "item": [
+        {
+          "name": "api/categories",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_SHOPAPP}}/categories",
+              "host": ["{{API_SHOPAPP}}"],
+              "path": ["categories"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/categories/:id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_SHOPAPP}}/categories/1",
+              "host": ["{{API_SHOPAPP}}"],
+              "path": ["categories", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/categories",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{API_SHOPAPP}}/categories",
+              "host": ["{{API_SHOPAPP}}"],
+              "path": ["categories"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/categories",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{API_SHOPAPP}}/categories",
+              "host": ["{{API_SHOPAPP}}"],
+              "path": ["categories"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/categories/:id",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{API_SHOPAPP}}/categories/1",
+              "host": ["{{API_SHOPAPP}}"],
+              "path": ["categories", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "brands",
+      "item": [
+        {
+          "name": "api/brands",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_SHOPAPP}}/brands",
+              "host": ["{{API_SHOPAPP}}"],
+              "path": ["brands"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/brands/:id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_SHOPAPP}}/brands/1",
+              "host": ["{{API_SHOPAPP}}"],
+              "path": ["brands", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/brands",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{API_SHOPAPP}}/brands",
+              "host": ["{{API_SHOPAPP}}"],
+              "path": ["brands"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/brands",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{API_SHOPAPP}}/brands",
+              "host": ["{{API_SHOPAPP}}"],
+              "path": ["brands"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/brands/:id",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{API_SHOPAPP}}/brands/1",
+              "host": ["{{API_SHOPAPP}}"],
+              "path": ["brands", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "orders",
+      "item": [
+        {
+          "name": "api/orders",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_SHOPAPP}}/orders",
+              "host": ["{{API_SHOPAPP}}"],
+              "path": ["orders"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/orders/:id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_SHOPAPP}}/orders/1",
+              "host": ["{{API_SHOPAPP}}"],
+              "path": ["orders", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/orders",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{API_SHOPAPP}}/orders",
+              "host": ["{{API_SHOPAPP}}"],
+              "path": ["orders"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/orders",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{API_SHOPAPP}}/orders",
+              "host": ["{{API_SHOPAPP}}"],
+              "path": ["orders"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/orders/:id",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{API_SHOPAPP}}/orders/1",
+              "host": ["{{API_SHOPAPP}}"],
+              "path": ["orders", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "order-details",
+      "item": [
+        {
+          "name": "api/order-details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_SHOPAPP}}/order-details",
+              "host": ["{{API_SHOPAPP}}"],
+              "path": ["order-details"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/order-details/:id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_SHOPAPP}}/order-details/1",
+              "host": ["{{API_SHOPAPP}}"],
+              "path": ["order-details", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/order-details",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{API_SHOPAPP}}/order-details",
+              "host": ["{{API_SHOPAPP}}"],
+              "path": ["order-details"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/order-details",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{API_SHOPAPP}}/order-details",
+              "host": ["{{API_SHOPAPP}}"],
+              "path": ["order-details"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "api/order-details/:id",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{API_SHOPAPP}}/order-details/1",
+              "host": ["{{API_SHOPAPP}}"],
+              "path": ["order-details", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
