@@ -4,12 +4,21 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 // Hàm kiểm tra và lấy thông tin người dùng từ token
 async function getUserFromToken(req) {
-  const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+  let authHeader = req.headers.authorization || req.headers.http_authorization || req.headers["x-access-token"];
+  
+  if (!authHeader && req.headers.authorization) {
+    authHeader = req.headers.authorization;
+  }
+
+  if (!authHeader) {
     throw new Error("Không có token được cung cấp");
   }
 
-  const token = authHeader.split(" ")[1];
+  let token = authHeader;
+  if (authHeader.startsWith("Bearer ")) {
+    token = authHeader.split(" ")[1];
+  }
+
   const decoded = jwt.verify(token, JWT_SECRET);
   const user = await db.User.findByPk(decoded.id);
 
