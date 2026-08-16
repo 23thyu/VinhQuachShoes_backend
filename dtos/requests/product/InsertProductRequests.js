@@ -16,16 +16,16 @@ class InsertProductRequests {
   }
   static validate(data) {
     const schema = Joi.object({
-      name: Joi.string().required(),
-      price: Joi.number().positive().required(),
+      name: Joi.string().allow("").allow(null).optional(),
+      price: Joi.number().min(0).allow(null).optional(),
       oldprice: Joi.number().allow(null).optional(),
-      image: Joi.string().allow(""),
+      image: Joi.string().allow("").allow(null).optional(),
       description: Joi.string().allow("").allow(null).optional(),
       specification: Joi.string().allow("").allow(null).optional(),
-      buyturn: Joi.number().integer().min(0),
-      quantity: Joi.number().integer().min(0),
-      brand_id: Joi.number().integer().required(),
-      category_id: Joi.number().integer().required(),
+      buyturn: Joi.number().integer().min(0).allow(null).optional(),
+      quantity: Joi.number().integer().min(0).allow(null).optional(),
+      brand_id: Joi.number().integer().allow(null).optional(),
+      category_id: Joi.number().integer().allow(null).optional(),
       attributes: Joi.any().optional().allow(null),
     });
     return schema.validate(data, { allowUnknown: true });

@@ -140,13 +140,21 @@ export async function getProductsById(req, res) {
 export async function insertProducts(req, res) {
   try {
     const userId = req.body.user_id || req.user?.id;
-    const user = await db.User.findByPk(userId);
-    if (!user) {
-      return res.status(404).json({
-        message: "Người dùng không tồn tại",
-      });
+    if (userId) {
+      const user = await db.User.findByPk(userId);
+      if (!user && req.body.user_id) {
+        return res.status(404).json({
+          message: "Người dùng không tồn tại",
+        });
+      }
     }
-    const product = await db.Product.create(req.body);
+
+    const bodyData = { ...req.body };
+    if (!bodyData.sku) {
+      bodyData.sku = `AJ-${Date.now().toString().slice(-4)}`;
+    }
+
+    const product = await db.Product.create(bodyData);
     return res.status(201).json({
       message: "Thêm sản phẩm thành công",
       data: product,
@@ -170,7 +178,7 @@ export async function updateProducts(req, res) {
       });
     }
 
-    if (name !== undefined && name !== null) {
+    if (name !== undefined && name !== null && String(name).trim() !== "") {
       const existingProduct = await db.Product.findOne({
         where: {
           name: name,

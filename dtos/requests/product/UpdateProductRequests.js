@@ -17,12 +17,12 @@ class UpdateProductRequest {
 
   static validate(data) {
     const schema = Joi.object({
-      name: Joi.string().allow(null).optional(),
-      price: Joi.number().positive().allow(null).optional(),
+      name: Joi.string().allow("").allow(null).optional(),
+      price: Joi.number().min(0).allow(null).optional(),
       oldprice: Joi.number().allow(null).optional(),
       image: Joi.string().allow("").allow(null).optional(),
-      description: Joi.string().allow(null).optional(),
-      specification: Joi.string().allow(null).optional(),
+      description: Joi.string().allow("").allow(null).optional(),
+      specification: Joi.string().allow("").allow(null).optional(),
       buyturn: Joi.number().integer().min(0).allow(null).optional(),
       quantity: Joi.number().integer().min(0).allow(null).optional(),
       brand_id: Joi.number().integer().allow(null).optional(),
