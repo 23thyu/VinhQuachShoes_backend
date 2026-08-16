@@ -18,7 +18,7 @@ export const getProductImages = async (req, res) => {
       db.ProductImage.findAll({
         where: whereClause,
         ...(pageSize ? { limit: pageSize, offset: offset } : {}),
-        order: [["created_at", "ASC"]],
+        order: [["id", "ASC"]],
       }),
       db.ProductImage.count({
         where: whereClause,
