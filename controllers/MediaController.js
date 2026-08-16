@@ -10,8 +10,8 @@ export async function uploadMedia(req, res) {
       return res.status(400).json({ error: "Không có file nào được tải lên." });
     }
 
-    if (req.files.length > 5) {
-      return res.status(400).json({ error: "Chỉ cho phép tải lên tối đa 5 ảnh một lần." });
+    if (req.files.length > 25) {
+      return res.status(400).json({ error: "Chỉ cho phép tải lên tối đa 25 ảnh một lần." });
     }
 
     // Upload tất cả các file lên Cloudinary

@@ -49,19 +49,19 @@ export function AppRoute(app) {
   router.post(
     "/images/upload",
     requireRoles([UserRole.ADMIN]),
-    uploadImageMiddlewares.array("images", 5),
+    uploadImageMiddlewares.array("images", 25),
     asyncHandler(ImageController.uploadImages)
   );
   router.post(
     "/images/google/upload",
     requireRoles([UserRole.ADMIN]),
-    uploadGoogleImageMiddleware.array("images", 5),
+    uploadGoogleImageMiddleware.array("images", 25),
     asyncHandler(ImageController.uploadImageGoogle)
   );
   router.post(
     "/images/cloudinary/upload",
     requireRoles([UserRole.ADMIN]),
-    uploadCloudinaryImageMiddleware.array("images", 5),
+    uploadCloudinaryImageMiddleware.array("images", 25),
     asyncHandler(ImageController.uploadImageCloudinary)
   );
   router.get("/images/:fileName",
@@ -77,7 +77,7 @@ export function AppRoute(app) {
   );
   router.post(
     "/media/upload",
-    uploadCloudinaryImageMiddleware.array("images", 5),
+    uploadCloudinaryImageMiddleware.array("images", 25),
     asyncHandler(MediaController.uploadMedia)
   );
   router.delete(

@@ -4,8 +4,9 @@ const { Op } = Sequelize;
 export const getProductImages = async (req, res) => {
   const { product_id } = req.query;
   const page = parseInt(req.query.page) || 1;
-  const pageSize = 5;
-  const offset = (page - 1) * pageSize;
+  const limitParam = req.query.limit;
+  const pageSize = limitParam === "all" ? null : (parseInt(limitParam, 10) || 25);
+  const offset = pageSize ? (page - 1) * pageSize : undefined;
 
   let whereClause = {};
   if (product_id) {
@@ -16,9 +17,8 @@ export const getProductImages = async (req, res) => {
     const [productImages, totalProductImages] = await Promise.all([
       db.ProductImage.findAll({
         where: whereClause,
-        limit: pageSize,
-        offset: offset,
-        // Không include product để tránh response thừa — client đã có context
+        ...(pageSize ? { limit: pageSize, offset: offset } : {}),
+        order: [["created_at", "ASC"]],
       }),
       db.ProductImage.count({
         where: whereClause,
@@ -32,7 +32,7 @@ export const getProductImages = async (req, res) => {
         image_url: GetImageURL(img.image_url),
       })),
       current_page: page,
-      total_page: Math.ceil(totalProductImages / pageSize),
+      total_page: pageSize ? Math.ceil(totalProductImages / pageSize) : 1,
       total: totalProductImages,
     });
   } catch (error) {
@@ -69,7 +69,7 @@ export async function getProductImage(req, res) {
 }
 
 export async function insertProductImage(req, res) {
-  const { product_id, image_url } = req.body;
+  const { product_id, image_url, image_urls } = req.body;
 
   // Kiểm tra xem sản phẩm có tồn tại không
   const product = await db.Product.findByPk(product_id);
@@ -79,30 +79,46 @@ export async function insertProductImage(req, res) {
     });
   }
 
-  // Kiểm tra xem cặp product_id và image_url đã tồn tại trong bảng ProductImage chưa
-  const existingImage = await db.ProductImage.findOne({
-    where: {
-      product_id: product_id,
-      image_url: image_url,
-    },
-  });
-
-  if (existingImage) {
-    return res.status(409).json({
-      message: "Ảnh này đã được liên kết với sản phẩm này.",
+  const urlsToAdd = Array.isArray(image_urls) ? image_urls : (image_url ? [image_url] : []);
+  if (urlsToAdd.length === 0) {
+    return res.status(400).json({
+      message: "Vui lòng cung cấp URL hình ảnh",
     });
   }
 
-  // Nếu mọi thứ hợp lệ, tiến hành thêm mới ảnh sản phẩm
-  try {
-    const newProductImage = await db.ProductImage.create({
-      product_id: product_id,
-      image_url: image_url,
+  // Kiểm tra giới hạn 25 ảnh phụ
+  const currentCount = await db.ProductImage.count({
+    where: { product_id: product_id },
+  });
+
+  if (currentCount + urlsToAdd.length > 25) {
+    return res.status(400).json({
+      message: `Tối đa chỉ được chọn 25 hình ảnh phụ cho một sản phẩm. Hiện tại đã có ${currentCount} ảnh.`,
     });
+  }
+
+  try {
+    const createdImages = [];
+    for (const url of urlsToAdd) {
+      const existingImage = await db.ProductImage.findOne({
+        where: {
+          product_id: product_id,
+          image_url: url,
+        },
+      });
+
+      if (!existingImage) {
+        const newProductImage = await db.ProductImage.create({
+          product_id: product_id,
+          image_url: url,
+        });
+        createdImages.push(newProductImage);
+      }
+    }
 
     res.status(201).json({
-      message: "Thêm mới ảnh sản phẩm thành công",
-      data: newProductImage,
+      message: `Thêm mới ${createdImages.length} ảnh sản phẩm thành công`,
+      data: createdImages,
     });
   } catch (error) {
     res.status(500).json({
