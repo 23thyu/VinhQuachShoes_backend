@@ -4,7 +4,8 @@ import { GetImageURL } from "../helpers/imageHelper.js";
 import InsertProductRequests from "../dtos/requests/product/InsertProductRequests";
 const { Op } = Sequelize;
 export async function getProducts(req, res) {
-  const { search = "", page = 1, category_id, brand_id, sort = "newest", limit } = req.query;
+  const { search = "", keyword = "", page = 1, category_id, brand_id, sort = "newest", limit } = req.query;
+  const searchKeyword = (search || keyword || "").trim();
   
   let pageSize = 6;
   let offset = (page - 1) * pageSize;
@@ -18,14 +19,12 @@ export async function getProducts(req, res) {
   }
 
   let whereClause = {};
-  if (search.trim() !== "") {
-    whereClause = {
-      [Op.or]: [
-        { name: { [Op.like]: `%${search}%` } },
-        { description: { [Op.like]: `%${search}%` } },
-        { specification: { [Op.like]: `%${search}%` } },
-      ],
-    };
+  if (searchKeyword !== "") {
+    whereClause[Op.or] = [
+      { name: { [Op.like]: `%${searchKeyword}%` } },
+      { description: { [Op.like]: `%${searchKeyword}%` } },
+      { specification: { [Op.like]: `%${searchKeyword}%` } },
+    ];
   }
   if (category_id) whereClause.category_id = category_id;
   if (brand_id) whereClause.brand_id = brand_id;
@@ -65,7 +64,7 @@ export async function getProducts(req, res) {
     });
 
     res.status(200).json({
-      message: "lấy danh sách sản phẩm thành công",
+      message: "Lấy danh sách sản phẩm thành công",
       data: formattedProducts,
       current_page: isPaginated ? parseInt(page, 10) : 1,
       total_page: isPaginated ? Math.ceil(totalProducts / pageSize) : 1,
@@ -75,6 +74,7 @@ export async function getProducts(req, res) {
     res.status(500).json({
       message: "Lỗi khi lấy danh sách sản phẩm",
       error: error.message,
+      data: [],
     });
   }
 }
