@@ -13,10 +13,6 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "user_id",
         as: "order",
       });
-      User.hasMany(models.FeedBack, {
-        foreignKey: "user_id",
-        as: "feedback",
-      });
     }
   }
   User.init(
