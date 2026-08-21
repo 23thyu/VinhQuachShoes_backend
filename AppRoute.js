@@ -43,6 +43,7 @@ import InsertCartItemRequest from "./dtos/requests/cart_item/InsertCartItemReque
 import UpdateOrderRequest from "./dtos/requests/order/UpdateOrderRequests.js";
 import loginUserRequest from "./dtos/requests/user/LoginUserRequest.js";
 import { requireRoles } from "./middlewares/jwtmiddlewares.js";
+import * as FeedbackController from "./controllers/FeedbackController";
 
 export function AppRoute(app) {
   //Image
@@ -432,7 +433,21 @@ export function AppRoute(app) {
     requireRoles([UserRole.ADMIN]),
     asyncHandler(ProductImageController.deleteProductImage)
   );
-  // PUT /product-images/:id hiện chưa được hỗ trợ (updateProductImage đang được phát triển)
+  // Feedback Routes
+  router.get(
+    "/feedbacks",
+    asyncHandler(FeedbackController.getAllFeedbacks)
+  );
+  router.post(
+    "/feedbacks",
+    uploadCloudinaryImageMiddleware.array("images", 5),
+    asyncHandler(FeedbackController.createFeedback)
+  );
+  router.delete(
+    "/feedbacks/:id",
+    requireRoles([UserRole.ADMIN]),
+    asyncHandler(FeedbackController.deleteFeedback)
+  );
 
   app.use("/api/", router);
 }
