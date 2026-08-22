@@ -20,10 +20,10 @@ export async function getAllFeedbacks(req, res) {
   }
 }
 
-// Create feedback with content and image file upload to Cloudinary
+// Create feedback with content (optional) and image file upload to Cloudinary
 export async function createFeedback(req, res) {
   try {
-    const { content } = req.body;
+    const content = req.body.content ? String(req.body.content).trim() : "";
     let imageUrl = req.body.image_url || "";
 
     const file = req.file || (req.files && req.files.length > 0 ? req.files[0] : null);
@@ -33,8 +33,12 @@ export async function createFeedback(req, res) {
       imageUrl = uploadResult.secure_url;
     }
 
+    if (!imageUrl) {
+      return res.status(400).json({ error: "Hình ảnh feedback là bắt buộc." });
+    }
+
     const feedback = await db.FeedBack.create({
-      content: content || "",
+      content: content,
       image_url: imageUrl,
     });
 
