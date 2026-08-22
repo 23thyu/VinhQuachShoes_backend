@@ -77,9 +77,22 @@ export async function getAllMedia(req, res) {
       db.Media.count({ where: whereClause }),
     ]);
 
+    const formattedMedia = media.map((item) => {
+      const plain = item.get({ plain: true });
+      if (plain.url && plain.url.includes("res.cloudinary.com")) {
+        if (!plain.url.includes("/f_auto")) {
+          plain.url = plain.url.replace("/upload/", "/upload/f_auto,q_auto/");
+        }
+        plain.url = plain.url.replace(/\.(heic|heif)$/i, ".jpg");
+      } else if (plain.url && /\.(heic|heif)$/i.test(plain.url)) {
+        plain.url = plain.url.replace(/\.(heic|heif)$/i, ".jpg");
+      }
+      return plain;
+    });
+
     return res.status(200).json({
       message: "Lấy danh sách thư viện ảnh thành công",
-      data: media,
+      data: formattedMedia,
       current_page: limit !== "all" ? pageNum : 1,
       total_page: limit !== "all" ? Math.ceil(totalMedia / limitNum) : 1,
       total: totalMedia,

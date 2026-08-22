@@ -19,9 +19,14 @@ export const uploadToCloudinary = (fileBuffer, folder = "shopapp") => {
       {
         folder: folder,
         resource_type: "auto",
+        fetch_format: "auto",
+        quality: "auto",
       },
       (error, result) => {
         if (error) return reject(error);
+        if (result && result.secure_url) {
+          result.secure_url = result.secure_url.replace(/\.(heic|heif)$/i, ".jpg");
+        }
         resolve(result);
       }
     );
